@@ -88,7 +88,8 @@ func (cv CreateVM) Run(agentID string, stemcellCID StemcellCID, cloudProps VMClo
 	}
 
 	// Parse VM properties
-	vmProps := &instance.Properties{
+	vmConfig := &instance.VMConfig{
+		Name:              cloudProps.Name,
 		Zone:              zone,
 		Stemcell:          stemcellLink,
 		MachineType:       machineTypeLink,
@@ -101,7 +102,7 @@ func (cv CreateVM) Run(agentID string, stemcellCID StemcellCID, cloudProps VMClo
 	}
 
 	// Create VM
-	vm, err := cv.vmService.Create(vmProps, vmNetworks, cv.registryOptions.EndpointWithCredentials())
+	vm, err := cv.vmService.Create(vmConfig, vmNetworks, cv.registryOptions.EndpointWithCredentials())
 	if err != nil {
 		if _, ok := err.(api.CloudError); ok {
 			return "", err

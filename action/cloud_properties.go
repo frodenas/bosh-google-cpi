@@ -32,6 +32,7 @@ type StemcellCloudProperties struct {
 }
 
 type VMCloudProperties struct {
+	Name              string          `json:"name,omitempty"`
 	Zone              string          `json:"zone,omitempty"`
 	MachineType       string          `json:"machine_type,omitempty"`
 	CPU               int             `json:"cpu,omitempty"`
