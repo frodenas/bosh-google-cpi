@@ -25,7 +25,7 @@ func (i GoogleInstanceService) Create(vmProps *VMConfig, networks Networks, regi
 	}
 	canIPForward := networks.CanIPForward()
 	diskParams := i.createDiskParams(vmProps.Stemcell, vmProps.RootDiskSizeGb, vmProps.RootDiskType)
-	metadataParams, err := i.createMatadataParams(vmProps.Name, registryEndpoint, networks)
+	metadataParams, err := i.createMatadataParams(vmProps, registryEndpoint, networks)
 	if err != nil {
 		return "", err
 	}
@@ -96,8 +96,8 @@ func (i GoogleInstanceService) createDiskParams(stemcell string, diskSize int, d
 	return disks
 }
 
-func (i GoogleInstanceService) createMatadataParams(name string, regEndpoint string, networks Networks) (*compute.Metadata, error) {
-	serverName := GoogleUserDataServerName{Name: name}
+func (i GoogleInstanceService) createMatadataParams(config *VMConfig, regEndpoint string, networks Networks) (*compute.Metadata, error) {
+	serverName := GoogleUserDataServerName{Name: config.Name}
 	registryEndpoint := GoogleUserDataRegistryEndpoint{Endpoint: regEndpoint}
 	userData := GoogleUserData{Server: serverName, Registry: registryEndpoint}
 
@@ -114,6 +114,11 @@ func (i GoogleInstanceService) createMatadataParams(name string, regEndpoint str
 	userDataValue := string(ud)
 	metadataItem := &compute.MetadataItems{Key: userDataKey, Value: &userDataValue}
 	metadataItems = append(metadataItems, metadataItem)
+
+	for k, v := range config.Metadata {
+		metadataItems = append(metadataItems, &compute.MetadataItems{Key: k, Value: v.(*string)})
+	}
+
 	metadata := &compute.Metadata{Items: metadataItems}
 
 	return metadata, nil

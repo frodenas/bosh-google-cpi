@@ -33,6 +33,7 @@ type VMConfig struct {
 	Name              string
 	Zone              string
 	Stemcell          string
+	Metadata          Metadata
 	MachineType       string
 	RootDiskSizeGb    int
 	RootDiskType      string
