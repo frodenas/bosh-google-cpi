@@ -43,6 +43,7 @@ type VMCloudProperties struct {
 	OnHostMaintenance string          `json:"on_host_maintenance,omitempty"`
 	Preemptible       bool            `json:"preemptible,omitempty"`
 	ServiceScopes     VMServiceScopes `json:"service_scopes,omitempty"`
+	Metadata          VMMetadata      `json:"metadata,omitempty"`
 }
 
 type VMServiceScopes []string
