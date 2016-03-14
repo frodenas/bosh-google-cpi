@@ -115,9 +115,9 @@ func (i GoogleInstanceService) createMatadataParams(config *VMConfig, regEndpoin
 	metadataItem := &compute.MetadataItems{Key: userDataKey, Value: &userDataValue}
 	metadataItems = append(metadataItems, metadataItem)
 
-	for k, _ := range config.Metadata {
-		val := config.Metadata[k].(string)
-		metadataItems = append(metadataItems, &compute.MetadataItems{Key: k, Value: &val})
+	for k := range config.Metadata {
+		v := config.Metadata[k].(string)
+		metadataItems = append(metadataItems, &compute.MetadataItems{Key: k, Value: &v})
 	}
 
 	metadata := &compute.Metadata{Items: metadataItems}

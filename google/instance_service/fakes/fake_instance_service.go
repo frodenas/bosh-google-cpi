@@ -26,7 +26,7 @@ type FakeInstanceService struct {
 	CreateCalled           bool
 	CreateErr              error
 	CreateID               string
-	CreateVMProps          *instance.Properties
+	CreateVMProps          *instance.VMConfig
 	CreateNetworks         instance.Networks
 	CreateRegistryEndpoint string
 
@@ -86,7 +86,7 @@ func (i *FakeInstanceService) CleanUp(id string) {
 	return
 }
 
-func (i *FakeInstanceService) Create(vmProps *instance.Properties, networks instance.Networks, registryEndpoint string) (string, error) {
+func (i *FakeInstanceService) Create(vmProps *instance.VMConfig, networks instance.Networks, registryEndpoint string) (string, error) {
 	i.CreateCalled = true
 	i.CreateVMProps = vmProps
 	i.CreateNetworks = networks
