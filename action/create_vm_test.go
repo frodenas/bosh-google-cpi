@@ -38,7 +38,7 @@ var _ = Describe("CreateVM", func() {
 		defaultRootDiskType      string
 		registryOptions          registry.ClientOptions
 		agentOptions             registry.AgentOptions
-		expectedVMProps          *instance.Properties
+		expectedVMProps          *instance.VMConfig
 		expectedInstanceNetworks instance.Networks
 		expectedAgentSettings    registry.AgentSettings
 
@@ -129,7 +129,7 @@ var _ = Describe("CreateVM", func() {
 				},
 			}
 
-			expectedVMProps = &instance.Properties{
+			expectedVMProps = &instance.VMConfig{
 				Zone:              "fake-default-zone",
 				Stemcell:          "fake-image-self-link",
 				MachineType:       "fake-machine-type-self-link",

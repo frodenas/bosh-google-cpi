@@ -10,7 +10,7 @@ type Service interface {
 	AttachDisk(id string, diskLink string) (string, string, error)
 	AttachedDisks(id string) (AttachedDisks, error)
 	CleanUp(id string)
-	Create(vmProps *Properties, networks Networks, registryEndpoint string) (string, error)
+	Create(vmConfig *VMConfig, networks Networks, registryEndpoint string) (string, error)
 	Delete(id string) error
 	DeleteAccessConfig(id string, zone string, networkInterface string, accessConfig string) error
 	DeleteNetworkConfiguration(id string) error
@@ -26,9 +26,14 @@ type AttachedDisks []string
 
 type Metadata map[string]interface{}
 
-type Properties struct {
+type VMConfig struct {
+	// Name is the optional name that will be assigned to the GCE VM on creation.
+	// Names must be unique within a GCP project.
+	// The nil value will means a UUID will be used for the VM name.
+	Name              string
 	Zone              string
 	Stemcell          string
+	Metadata          Metadata
 	MachineType       string
 	RootDiskSizeGb    int
 	RootDiskType      string

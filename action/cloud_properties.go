@@ -32,6 +32,7 @@ type StemcellCloudProperties struct {
 }
 
 type VMCloudProperties struct {
+	Name              string          `json:"name,omitempty"`
 	Zone              string          `json:"zone,omitempty"`
 	MachineType       string          `json:"machine_type,omitempty"`
 	CPU               int             `json:"cpu,omitempty"`
@@ -42,6 +43,7 @@ type VMCloudProperties struct {
 	OnHostMaintenance string          `json:"on_host_maintenance,omitempty"`
 	Preemptible       bool            `json:"preemptible,omitempty"`
 	ServiceScopes     VMServiceScopes `json:"service_scopes,omitempty"`
+	Metadata          VMMetadata      `json:"metadata,omitempty"`
 }
 
 type VMServiceScopes []string
